@@ -52,13 +52,13 @@ if uploaded_file:
                 )
 
                 if response.status_code != 200:
-                    st.error("Prediction failed.")
-                    st.stop()
-
+                     st.error(f"Prediction failed. Status Code: {response.status_code}")
+                     st.code(response.text)
+                     st.stop()
                 result = response.json()
 
             except Exception as e:
-                st.error(f"Unable to connect to backend.\n\n{e}")
+                st.exception(e)
                 st.stop()
 
         st.success("Analysis Completed")
