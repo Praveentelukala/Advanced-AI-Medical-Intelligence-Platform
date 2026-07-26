@@ -3,7 +3,7 @@ import tensorflow as tf
 from pathlib import Path
 from PIL import Image
 from tensorflow.keras.applications.efficientnet import preprocess_input
-
+from app.services.gradcam import generate_gradcam
 # Load model once
 MODEL_PATH = Path(__file__).resolve().parents[2] / "trained_model" / "model.keras"
 
@@ -47,6 +47,7 @@ def predict(image: Image.Image):
         print(f"{cls}: {predictions[0][i] * 100:.2f}%")
 
     class_index = np.argmax(predictions)
+    heatmap_path = generate_gradcam(model, image, class_index)
 
     print("Predicted Index:", class_index)
     print("Predicted Class:", CLASS_NAMES[class_index])
@@ -56,10 +57,11 @@ def predict(image: Image.Image):
     confidence = float(predictions[0][class_index]) * 100
 
     return {
-        "prediction": CLASS_NAMES[class_index],
-        "confidence": round(confidence, 2),
-        "probabilities": {
-            CLASS_NAMES[i]: round(float(predictions[0][i]) * 100, 2)
-            for i in range(len(CLASS_NAMES))
-        }
-    }
+    "prediction": CLASS_NAMES[class_index],
+    "confidence": round(confidence, 2),
+    "probabilities": {
+        CLASS_NAMES[i]: round(float(predictions[0][i]) * 100, 2)
+        for i in range(len(CLASS_NAMES))
+    },
+    "heatmap": heatmap_path
+}
