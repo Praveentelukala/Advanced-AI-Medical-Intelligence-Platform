@@ -7,9 +7,6 @@ __pycache__/
 venv/
 .venv/
 
-# TensorFlow
-*.h5
-*.keras
 
 # Environment Variables
 .env

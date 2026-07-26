@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide"
 )
 
-BACKEND_URL = "http://127.0.0.1:8000"
+BACKEND_URL = "https://advanced-ai-medical-intelligence-platform-unwx.onrender.com"
 
 st.title("🧠 Advanced AI Medical Intelligence Platform")
 st.write("Upload a Brain MRI image and click **Analyze MRI**.")
