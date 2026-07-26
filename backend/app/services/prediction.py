@@ -46,20 +46,21 @@ def predict(image: Image.Image):
 
     for i, cls in enumerate(CLASS_NAMES):
         print(f"{cls}: {predictions[0][i] * 100:.2f}%")
-        class_index = np.argmax(predictions)
-        confidence = float(predictions[0][class_index]) * 100
-        heatmap_path = generate_gradcam(model, image, class_index)
-        report = generate_medical_report(
-            prediction=CLASS_NAMES[class_index],
-            confidence=confidence
-        )
+
+    class_index = np.argmax(predictions)
+
+    confidence = float(predictions[0][class_index]) * 100
+
+    heatmap_path = generate_gradcam(model, image, class_index)
+
+    report = generate_medical_report(
+        prediction=CLASS_NAMES[class_index],
+        confidence=confidence
+    )
 
     print("Predicted Index:", class_index)
     print("Predicted Class:", CLASS_NAMES[class_index])
-
     print("===============================\n")
-
-    confidence = float(predictions[0][class_index]) * 100
 
     return {
     "prediction": CLASS_NAMES[class_index],
@@ -69,5 +70,5 @@ def predict(image: Image.Image):
         for i in range(len(CLASS_NAMES))
     },
     "heatmap": heatmap_path,
-    "report": report
+    "medical_report": report
 }
