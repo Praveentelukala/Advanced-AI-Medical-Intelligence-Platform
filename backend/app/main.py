@@ -1,11 +1,16 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+# Import Prediction Router
+from app.api.predict import router as predict_router
+
+
 app = FastAPI(
     title="Advanced AI Medical Intelligence Platform",
     description="AI-powered medical image analysis with Explainable AI and LLM integration.",
     version="1.0.0",
 )
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,12 +20,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Register API Routers
+app.include_router(predict_router)
+
+
 @app.get("/")
 def root():
     return {
         "message": "Advanced AI Medical Intelligence Platform API",
         "status": "running"
     }
+
 
 @app.get("/health")
 def health():
