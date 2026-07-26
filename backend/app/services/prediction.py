@@ -51,12 +51,12 @@ def predict(image: Image.Image):
 
     confidence = float(predictions[0][class_index]) * 100
 
-    heatmap_path = generate_gradcam(model, image, class_index)
+    # heatmap_path = generate_gradcam(model, image, class_index)
 
-    report = generate_medical_report(
-        prediction=CLASS_NAMES[class_index],
-        confidence=confidence
-    )
+    # report = generate_medical_report(
+    #     prediction=CLASS_NAMES[class_index],
+    #     confidence=confidence
+    #)
 
     print("Predicted Index:", class_index)
     print("Predicted Class:", CLASS_NAMES[class_index])
